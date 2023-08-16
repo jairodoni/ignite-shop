@@ -8,8 +8,9 @@ import {
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import Image from 'next/legacy/image'
-import Skeleton from 'react-loading-skeleton'
 import { SkeletonComponent } from './components/skeleton'
+import axios from 'axios'
+import { useState } from 'react'
 
 interface Product {
   id: string
@@ -17,6 +18,7 @@ interface Product {
   imgUrl: string
   price: string
   description: string
+  defaultPriceId: string
 }
 
 interface ProductProps {
@@ -24,7 +26,26 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSesstion] =
+    useState(false)
   const { isFallback } = useRouter()
+
+  async function handleBuyProduct() {
+    try {
+      setIsCreatingCheckoutSesstion(true)
+      const response = await axios.post('/api/checkout', {
+        priceId: product.defaultPriceId,
+      })
+
+      const { checkoutUrl } = response.data
+
+      window.location.href = checkoutUrl
+    } catch (err) {
+      // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
+      setIsCreatingCheckoutSesstion(false)
+      alert('Falha ao redirecionar ao checkout')
+    }
+  }
 
   if (isFallback) {
     return <SkeletonComponent />
@@ -41,7 +62,9 @@ export default function Product({ product }: ProductProps) {
         <span>{product.price}</span>
 
         <p>{product.description}</p>
-        <button type="button">Comprar agora</button>
+        <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>
+          Comprar agora
+        </button>
       </ProductDetails>
     </ProductContainer>
   )
@@ -73,6 +96,7 @@ export const getStaticProps: GetStaticProps<any, { slug: string }> = async ({
       currency: 'BRL',
     }).format(price.unit_amount ? price.unit_amount / 100 : 0),
     description: product.description,
+    defaultPriceId: price.id,
   }
 
   return {
