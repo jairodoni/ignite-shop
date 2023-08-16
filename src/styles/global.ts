@@ -12,7 +12,7 @@ export const globalStyles = globalCss({
     '-webkit-font-smoothing': 'antialiased',
   },
 
-  'body, <input type="text" />, textarea, button': {
+  'body, input, textarea, button': {
     fontFamily: 'Roboto',
     fontWeight: 400,
   },
