@@ -5,7 +5,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  // cs_test_a1w6b45szvtWOxsFZYDYELr78ZGKXt6mZqokkQeDGxLq7Rq9MiTIGNCZYc
   const { priceId } = req.body
 
   if (req.method !== 'POST') {
