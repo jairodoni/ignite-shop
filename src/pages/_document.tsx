@@ -9,6 +9,7 @@ export default function Document() {
           id="stitches"
           dangerouslySetInnerHTML={{ __html: getCssText() }}
         />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </Head>
       <body>
         <Main />

@@ -1,4 +1,4 @@
-import { ProductContainer } from '@/styles/pages/product'
+import { ProductContainer } from '../styles'
 import Skeleton from 'react-loading-skeleton'
 
 export function SkeletonComponent() {

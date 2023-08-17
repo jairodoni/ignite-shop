@@ -1,16 +1,13 @@
 import { useRouter } from 'next/router'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import {
-  ImageContainer,
-  ProductContainer,
-  ProductDetails,
-} from '@/styles/pages/product'
+import { ImageContainer, ProductContainer, ProductDetails } from './styles'
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import Image from 'next/legacy/image'
 import { SkeletonComponent } from './components/skeleton'
 import axios from 'axios'
 import { useState } from 'react'
+import { Header } from '@/components/Header'
 
 interface Product {
   id: string
@@ -48,25 +45,37 @@ export default function Product({ product }: ProductProps) {
   }
 
   if (isFallback) {
-    return <SkeletonComponent />
+    return (
+      <>
+        <Header title="Produto" />
+        <SkeletonComponent />
+      </>
+    )
   }
 
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image src={product.imgUrl} width={520} height={480} alt="" />
-      </ImageContainer>
+    <>
+      <Header title={product.name} />
 
-      <ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+      <ProductContainer>
+        <ImageContainer>
+          <Image src={product.imgUrl} width={520} height={480} alt="" />
+        </ImageContainer>
 
-        <p>{product.description}</p>
-        <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>
-          Comprar agora
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+        <ProductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
+
+          <p>{product.description}</p>
+          <button
+            disabled={isCreatingCheckoutSession}
+            onClick={handleBuyProduct}
+          >
+            Comprar agora
+          </button>
+        </ProductDetails>
+      </ProductContainer>
+    </>
   )
 }
 
