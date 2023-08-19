@@ -9,6 +9,8 @@ import { HomeContainer, Product } from '../styles/pages/home'
 
 import 'keen-slider/keen-slider.min.css'
 import { Header } from '@/components/Header'
+import { CaretRight, CaretLeft } from 'phosphor-react'
+import { useState } from 'react'
 
 interface Product {
   id: string
@@ -22,34 +24,82 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
-  const [sliderRef] = useKeenSlider({
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [loaded, setLoaded] = useState(false)
+  let screenWidth = 0
+
+  if (typeof window !== 'undefined') {
+    screenWidth = window.screen.width
+  }
+
+  const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
-      perView: 3,
-      spacing: 48,
+      perView: screenWidth > 480 ? 3 : 1,
+      spacing: screenWidth > 480 ? 48 : 16,
+      origin: 'center',
+    },
+    initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel)
+    },
+    created() {
+      setLoaded(true)
     },
   })
+
+  const renderSlide = loaded && instanceRef.current
+  const hiddenNextSlideButton =
+    renderSlide &&
+    instanceRef.current &&
+    currentSlide === instanceRef.current.track.details.slides.length - 2
 
   return (
     <>
       <Header title="Home" />
 
-      <HomeContainer ref={sliderRef} className="keen-slider">
-        {products.map((product: Product) => (
-          <Link
-            href={`/product/${product.id}`}
-            key={product.id}
-            prefetch={false}
-          >
-            <Product className="keen-slider__slide">
-              <Image src={product.imgUrl} width={520} height={480} alt="" />
+      <HomeContainer className="navigation-wrapper">
+        <div ref={sliderRef} className="keen-slider">
+          {products.map((product: Product, index) => (
+            <Link
+              href={`/product/${product.id}`}
+              key={product.id}
+              prefetch={false}
+            >
+              <Product className={`keen-slider__slide number-slide${index}`}>
+                <Image src={product.imgUrl} width={520} height={480} alt="" />
 
-              <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </footer>
-            </Product>
-          </Link>
-        ))}
+                <footer>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </footer>
+              </Product>
+            </Link>
+          ))}
+        </div>
+        {renderSlide && (
+          <>
+            <button
+              onClick={(e: any) =>
+                e.stopPropagation() || instanceRef.current?.prev()
+              }
+              disabled={currentSlide === 0}
+            >
+              <div>
+                <CaretLeft />
+              </div>
+            </button>
+            <button
+              onClick={(e: any) =>
+                e.stopPropagation() || instanceRef.current?.next()
+              }
+              disabled={!!hiddenNextSlideButton}
+            >
+              <div>
+                <CaretRight />
+              </div>
+            </button>
+          </>
+        )}
       </HomeContainer>
     </>
   )

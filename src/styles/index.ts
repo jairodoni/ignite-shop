@@ -15,6 +15,7 @@ export const {
 
       gray900: '#121214',
       gray800: '#202024',
+      gray400: '#8D8D99',
       gray300: '#c4c4cc',
       gray100: '#e1e1e6',
 
@@ -28,5 +29,17 @@ export const {
       xl: '1.5rem',
       '2xl': '2rem',
     },
+  },
+  media: {
+    bp480: '(max-width: 480px)',
+    bp650: '(max-width: 650px)',
+    bp900: '(max-width: 900px)',
+  },
+  utils: {
+    flexCenter: () => ({
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }),
   },
 })

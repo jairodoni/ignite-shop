@@ -4,7 +4,6 @@ import { GetServerSideProps } from 'next'
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import Image from 'next/legacy/image'
-import { Header } from '@/components/Header'
 import Head from 'next/head'
 
 interface SuccessProps {

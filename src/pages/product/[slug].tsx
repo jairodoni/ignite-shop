@@ -94,6 +94,7 @@ export const getStaticProps: GetStaticProps<any, { slug: string }> = async ({
   const product = await stripe.products.retrieve(productId, {
     expand: ['default_price'],
   })
+
   const price = product.default_price as Stripe.Price
 
   const productFormated = {
