@@ -182,7 +182,7 @@ export const ProductItem = styled('div', {
 
         transition: 'opacity 0.1s ease, background 0.2s ease',
 
-        '&:hover': {
+        '&:not(:active):hover': {
           opacity: 0.7,
         },
 
