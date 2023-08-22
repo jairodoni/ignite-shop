@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { X } from 'phosphor-react'
+import { Minus, Plus, X } from 'phosphor-react'
 import { Close, Content, ProductItem } from './styles'
 import Image from 'next/legacy/image'
 import shirt01 from '@/assets/imgs/Shirt-4.png'
@@ -22,7 +22,18 @@ export function ShoppingCartContent() {
               <div>
                 <span>Camiseta Beyond the Limits</span>
                 <strong>R$ 79,90</strong>
-                <a>Remover</a>
+                <div>
+                  <center>
+                    <button>
+                      <Minus weight="bold" />
+                    </button>
+                    <span>1</span>
+                    <button>
+                      <Plus weight="bold" />
+                    </button>
+                  </center>
+                  <a>Remover</a>
+                </div>
               </div>
             </ProductItem>
             <ProductItem>
@@ -32,7 +43,18 @@ export function ShoppingCartContent() {
               <div>
                 <span>Camiseta Beyond the Limits</span>
                 <strong>R$ 79,90</strong>
-                <a>Remover</a>
+                <div>
+                  <center>
+                    <button>
+                      <Minus weight="bold" />
+                    </button>
+                    <span>1</span>
+                    <button>
+                      <Plus weight="bold" />
+                    </button>
+                  </center>
+                  <a>Remover</a>
+                </div>
               </div>
             </ProductItem>
           </div>

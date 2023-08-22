@@ -37,7 +37,7 @@ export const ProductDetails = styled('div', {
     color: '$gray300',
   },
 
-  span: {
+  '> span': {
     marginTop: '1rem',
     display: 'block',
     fontSize: '$2xl',
@@ -52,7 +52,62 @@ export const ProductDetails = styled('div', {
     color: '$gray300',
   },
 
-  button: {
+  '> strong': {
+    margin: ' 1.25rem 0 1rem',
+    fontSize: '1.1rem',
+  },
+
+  '> div': {
+    width: 'min-content',
+    display: 'inline-flex',
+    alignItems: 'center',
+
+    border: '4px solid $white',
+    borderRadius: '9999px',
+
+    background: 'transparent',
+    color: '$white',
+
+    fontWeight: 700,
+    fontSize: '1rem',
+
+    span: {
+      margin: '0 0.75rem',
+    },
+  },
+
+  '> div > button': {
+    flexCenter: 'center',
+    color: '$white',
+    background: 'transparent',
+    border: 'none',
+    padding: 4,
+
+    transition: 'opacity 0.1s ease, background 0.2s ease',
+
+    svg: {
+      width: '1.25rem',
+      height: '1.25rem',
+    },
+
+    '&:hover': {
+      background: '$gray700',
+    },
+
+    '&:first-child': {
+      borderRadius: '9999px 0 0 9999px',
+    },
+
+    '&:last-child': {
+      borderRadius: '0 9999px 9999px 0',
+    },
+
+    '&:active': {
+      opacity: 0.7,
+    },
+  },
+
+  '> button': {
     marginTop: 'auto',
     background: '$green500',
     border: 0,

@@ -1,13 +1,16 @@
-import { useRouter } from 'next/router'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { ImageContainer, ProductContainer, ProductDetails } from './styles'
-import { stripe } from '@/lib/stripe'
-import Stripe from 'stripe'
-import Image from 'next/legacy/image'
-import { SkeletonComponent } from './components/skeleton'
-import axios from 'axios'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import Image from 'next/legacy/image'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import axios from 'axios'
+import Stripe from 'stripe'
+import { stripe } from '@/lib/stripe'
+import { Plus, Minus } from 'phosphor-react'
+
+import { SkeletonComponent } from './components/skeleton'
 import { Header } from '@/components/Header'
+
+import { ImageContainer, ProductContainer, ProductDetails } from './styles'
 
 interface Product {
   id: string
@@ -67,6 +70,16 @@ export default function Product({ product }: ProductProps) {
           <span>{product.price}</span>
 
           <p>{product.description}</p>
+          <strong>Quantidade:</strong>
+          <div>
+            <button>
+              <Minus size={24} weight="bold" />
+            </button>
+            <span>1</span>
+            <button>
+              <Plus size={24} weight="bold" />
+            </button>
+          </div>
           <button
             disabled={isCreatingCheckoutSession}
             onClick={handleBuyProduct}

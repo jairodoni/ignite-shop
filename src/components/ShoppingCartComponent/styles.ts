@@ -151,5 +151,50 @@ export const ProductItem = styled('div', {
         color: '$green300',
       },
     },
+
+    div: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+
+    '> div > center': {
+      width: '4.2rem',
+
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'row',
+
+      button: {
+        height: '1.25rem',
+
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+
+        border: 'none',
+        padding: '5px',
+        borderRadius: '4px',
+
+        background: '$green500',
+        color: '$white',
+
+        transition: 'opacity 0.1s ease, background 0.2s ease',
+
+        '&:hover': {
+          opacity: 0.7,
+        },
+
+        '&:active': {
+          background: '$green300',
+        },
+      },
+      span: {
+        fontWeight: 700,
+        fontSize: '1rem',
+        margin: '0.5rem',
+      },
+    },
   },
 })

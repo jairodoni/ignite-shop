@@ -25,7 +25,7 @@ export default async function handler(
     line_items: [
       {
         price: priceId,
-        quantity: 2,
+        quantity: 1,
       },
     ],
   })
