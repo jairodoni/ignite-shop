@@ -42,5 +42,8 @@ export const {
       alignItems: 'center',
       justifyContent: 'center',
     }),
+    borderTest: (color: 'red' | 'blue' | 'green' | any) => ({
+      border: `1px solid ${color}`,
+    }),
   },
 })

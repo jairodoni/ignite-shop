@@ -1,5 +1,6 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 import { getCssText } from '@/styles'
+import { CartProvider } from 'use-shopping-cart'
 
 export default function Document() {
   return (

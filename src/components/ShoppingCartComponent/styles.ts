@@ -20,14 +20,16 @@ const hideShoppingCardEffect = keyframes({
 })
 
 export const Content = styled(Dialog.Content, {
+  zIndex: 10,
   maxWidth: 480,
   width: '100%',
-  height: '100vh',
+  height: '100%',
   padding: '3rem',
 
   position: 'fixed',
   top: 0,
   right: 0,
+  bottom: 0,
 
   background: '$gray800',
   boxShadow: '-6px 0 30px rgba(0, 0, 0 , 0.9)',
@@ -51,9 +53,9 @@ export const Content = styled(Dialog.Content, {
     flexDirection: 'column',
     justifyContent: 'space-between',
 
-    height: '90vh',
+    height: '90%',
 
-    '> div:last-child': {
+    '.total': {
       maxHeight: '12.5rem',
 
       display: 'flex',
@@ -83,10 +85,27 @@ export const Content = styled(Dialog.Content, {
         borderRadius: 8,
         background: '$green500',
         border: 'none',
+        cursor: 'pointer',
+
         fontWeight: 700,
         fontSize: '$md',
         color: 'white',
         marginTop: '3.5625rem',
+
+        transition: 'filter 0.2s ease, opacity 0.2s ease',
+
+        '&:not(:disabled):hover': {
+          filter: 'brightness(1.4)',
+        },
+
+        '&:not(:disabled):active': {
+          opacity: 0.7,
+        },
+
+        '&:disabled': {
+          cursor: 'not-allowed',
+          opacity: 0.7,
+        },
       },
     },
   },
@@ -111,14 +130,14 @@ export const Close = styled(Dialog.Close, {
 })
 
 export const ProductItem = styled('div', {
-  display: 'flex',
-  flexDirection: 'row',
+  width: '100%',
+  display: 'inline-flex',
 
   '& + &': {
     marginTop: '1.53125rem',
   },
 
-  'div:first-child': {
+  '.image-product': {
     width: '6.37125rem',
     height: '5.8125rem',
 
@@ -135,7 +154,8 @@ export const ProductItem = styled('div', {
     },
   },
 
-  'div:last-child': {
+  '.info-product': {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -143,9 +163,20 @@ export const ProductItem = styled('div', {
     fontSize: '$md',
 
     a: {
+      color: '$gray300',
+      fontWeight: '400',
+      textDecoration: 'none',
+
+      '&:hover': {
+        color: '$gray100',
+      },
+    },
+
+    '.remove-product-link': {
       fontWeight: 700,
       color: '$green500',
       fontSize: '1rem',
+      cursor: 'pointer',
 
       '&:hover': {
         color: '$green300',
@@ -156,26 +187,46 @@ export const ProductItem = styled('div', {
       display: 'inline-flex',
       alignItems: 'center',
       flexDirection: 'row',
+      justifyContent: 'space-between',
     },
 
-    '> div > center': {
-      width: '4.2rem',
+    '> div:first-child': {
+      alignItems: 'flex-start',
 
+      span: {
+        wordBreak: 'break-all',
+        overflow: 'hidden',
+        display: '-webkit-box',
+        '-webkit-line-clamp': 2,
+        '-webkit-box-orient': 'vertical',
+      },
+
+      strong: {
+        flexWrap: 'nowrap',
+        whiteSpace: 'nowrap',
+        width: '5rem',
+      },
+    },
+
+    '> div:last-child': {
+      alignItems: 'flex-end',
+    },
+
+    '.quantity-control': {
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'row',
 
       button: {
-        height: '1.25rem',
+        height: '1.5rem',
 
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flexCenter: 'center',
         flexDirection: 'row',
 
         border: 'none',
         padding: '5px',
-        borderRadius: '4px',
+        borderRadius: '6px',
+        cursor: 'pointer',
 
         background: '$green500',
         color: '$white',
@@ -189,11 +240,17 @@ export const ProductItem = styled('div', {
         '&:active': {
           background: '$green300',
         },
+
+        svg: {
+          width: '1rem',
+          height: '1rem',
+        },
       },
+
       span: {
         fontWeight: 700,
-        fontSize: '1rem',
-        margin: '0.5rem',
+        fontSize: '1.2rem',
+        margin: ' 0 0.5rem',
       },
     },
   },

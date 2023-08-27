@@ -12,6 +12,9 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Link from 'next/link'
 import { ShoppingCartContent } from '@/components/ShoppingCartComponent'
 import { Handbag } from 'phosphor-react'
+import { CartProvider, useShoppingCart } from 'use-shopping-cart'
+import { ButtonTriggerShoppingCart } from '@/components/ButtonTriggerShoppingCart'
+import { useEffect, useState } from 'react'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -21,29 +24,30 @@ const roboto = Roboto({
 globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [open, setOpen] = useState(false)
+
+  function handleOpenCart() {
+    setOpen(true)
+  }
+
   return (
     <SkeletonTheme baseColor="#202020" highlightColor="#444">
-      <Container className={roboto.className}>
-        <Header>
-          <Link href="/">
-            <Image src={logoImg} alt="" />
-          </Link>
-          <Dialog.Root>
-            <Dialog.Trigger asChild>
-              <div>
-                <center>
-                  <span>1</span>
-                </center>
-                <button>
-                  <Handbag size={24} weight="bold" />
-                </button>
-              </div>
-            </Dialog.Trigger>
-            <ShoppingCartContent />
-          </Dialog.Root>
-        </Header>
-        <Component {...pageProps} />
-      </Container>
+      <CartProvider
+        mode="payment"
+        cartMode="checkout-session"
+        stripe={String(process.env.STRIPE_PUBLIC_KEY)}
+        currency="BRL"
+      >
+        <Container className={roboto.className}>
+          <Header>
+            <Link href="/">
+              <Image src={logoImg} alt="" />
+            </Link>
+            <ShoppingCartContent open={open} setOpen={setOpen} />
+          </Header>
+          <Component {...pageProps} handleOpenCart={handleOpenCart} />
+        </Container>
+      </CartProvider>
     </SkeletonTheme>
   )
 }

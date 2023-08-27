@@ -2,78 +2,149 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Minus, Plus, X } from 'phosphor-react'
 import { Close, Content, ProductItem } from './styles'
 import Image from 'next/legacy/image'
-import shirt01 from '@/assets/imgs/Shirt-4.png'
-import { useState } from 'react'
+import { useShoppingCart } from 'use-shopping-cart'
+import { useEffect, useState } from 'react'
+import { ButtonTriggerShoppingCart } from '../ButtonTriggerShoppingCart'
+import Link from 'next/link'
+import axios from 'axios'
 
-export function ShoppingCartContent() {
+interface ProductType {
+  name: string
+  id: string
+  price: number
+  currency: string
+  image: string
+}
+
+interface ShoppingCartContentProps {
+  open: boolean
+  setOpen: (open: boolean) => void
+}
+
+export function ShoppingCartContent({
+  open,
+  setOpen,
+}: ShoppingCartContentProps) {
+  const {
+    cartDetails,
+    cartCount,
+    incrementItem,
+    decrementItem,
+    removeItem,
+    formattedTotalPrice,
+  } = useShoppingCart()
+
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSesstion] =
+    useState(false)
+
+  const products = Object.values(cartDetails ?? {})
+
+  async function handleBuyProduct() {
+    const productsSelected = products.map((product) => {
+      return {
+        price: product.defaultPriceId,
+        quantity: product.quantity,
+      }
+    })
+
+    try {
+      setIsCreatingCheckoutSesstion(true)
+      const response = await axios.post('/api/checkout', {
+        listCartProducts: productsSelected,
+      })
+      const { checkoutUrl } = response.data
+      window.location.href = checkoutUrl
+    } catch (err) {
+      // Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
+      setIsCreatingCheckoutSesstion(false)
+      alert('Falha ao redirecionar ao checkout')
+    }
+  }
+
   return (
-    <Dialog.Portal>
-      <Content>
-        <div>
-          <div>
-            <Close>
-              <X size={24} />
-            </Close>
-            <h1>Sacola de compras</h1>
-            <ProductItem>
-              <div>
-                <Image src={shirt01} width={94} height={94} alt="" />
-              </div>
-              <div>
-                <span>Camiseta Beyond the Limits</span>
-                <strong>R$ 79,90</strong>
-                <div>
-                  <center>
-                    <button>
-                      <Minus weight="bold" />
-                    </button>
-                    <span>1</span>
-                    <button>
-                      <Plus weight="bold" />
-                    </button>
-                  </center>
-                  <a>Remover</a>
-                </div>
-              </div>
-            </ProductItem>
-            <ProductItem>
-              <div>
-                <Image src={shirt01} width={94} height={94} alt="" />
-              </div>
-              <div>
-                <span>Camiseta Beyond the Limits</span>
-                <strong>R$ 79,90</strong>
-                <div>
-                  <center>
-                    <button>
-                      <Minus weight="bold" />
-                    </button>
-                    <span>1</span>
-                    <button>
-                      <Plus weight="bold" />
-                    </button>
-                  </center>
-                  <a>Remover</a>
-                </div>
-              </div>
-            </ProductItem>
-          </div>
+    <Dialog.Root
+      open={!!cartCount && cartCount > 0 ? open : false}
+      onOpenChange={setOpen}
+    >
+      <ButtonTriggerShoppingCart />
 
+      <Dialog.Portal>
+        <Content>
           <div>
             <div>
-              <span>Quantidade</span>
-              <span>3 itens</span>
+              <Close>
+                <X size={24} />
+              </Close>
+              <h1>Sacola de compras</h1>
+              {!!cartCount &&
+                Number(cartCount) > 0 &&
+                products.map((product) => (
+                  <ProductItem key={product.id}>
+                    <Link href={`/product/${product.id}`}>
+                      <div className="image-product">
+                        <Image
+                          src={String(product.image)}
+                          width={94}
+                          height={94}
+                          alt=""
+                        />
+                      </div>
+                    </Link>
+                    <div className="info-product">
+                      <div>
+                        <span>
+                          <Link href={`/product/${product.id}`}>
+                            {product.name}
+                          </Link>
+                        </span>
+                        <strong>{product.formattedValue}</strong>
+                      </div>
+                      <div>
+                        <center className="quantity-control">
+                          <button onClick={() => decrementItem(product.id)}>
+                            <Minus weight="bold" />
+                          </button>
+                          <span>{product.quantity}</span>
+                          <button onClick={() => incrementItem(product.id)}>
+                            <Plus weight="bold" />
+                          </button>
+                        </center>
+                        <a
+                          className="remove-product-link"
+                          onClick={() => removeItem(product.id)}
+                        >
+                          Remover
+                        </a>
+                      </div>
+                    </div>
+                  </ProductItem>
+                ))}
             </div>
 
-            <div>
-              <strong>Total</strong>
-              <strong>R$ 270,00</strong>
-            </div>
+            <div className="total">
+              <div>
+                <span>Quantidade</span>
+                <span>{cartCount} itens</span>
+              </div>
 
-            <button type="button">Finalizar compra</button>
+              <div>
+                <strong>Total</strong>
+                <strong>{formattedTotalPrice}</strong>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleBuyProduct}
+                disabled={
+                  isCreatingCheckoutSession || !cartCount || cartCount === 0
+                }
+              >
+                Finalizar compra
+              </button>
+            </div>
           </div>
-        </div>
-      </Content>
-    </Dialog.Portal>
+        </Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   )
 }

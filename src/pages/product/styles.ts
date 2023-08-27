@@ -119,13 +119,13 @@ export const ProductDetails = styled('div', {
     fontFamily: '$md',
     fontSize: '$md',
 
+    '&:not(:disabled):hover': {
+      background: '$green300',
+    },
+
     '&:disabled': {
       opacity: 0.6,
       cursor: 'not-allowed',
-    },
-
-    '&:not(:disabled):hover': {
-      background: '$green300',
     },
   },
 })

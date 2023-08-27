@@ -82,7 +82,6 @@ export const Product = styled('div', {
 
   img: {
     objectFit: 'cover',
-    border: '1px solid red',
   },
 
   footer: {
@@ -90,7 +89,7 @@ export const Product = styled('div', {
     bottom: '0.25rem',
     left: '0.25rem',
     right: '0.25rem',
-    padding: '2rem',
+    padding: '1.25rem',
 
     borderRadius: 6,
 
@@ -100,19 +99,50 @@ export const Product = styled('div', {
 
     background: 'rgba(0,0,0, 0.6)',
 
-    transform: 'translateY(110%)',
-    opacity: 0,
+    transform: 'translateY(0%)',
+    opacity: 1,
     transition: 'all 0.2s ease-in-out',
 
-    strong: {
-      fontSize: '$lg',
-      color: '$gray100',
+    a: {
+      textDecoration: 'none',
     },
 
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green300',
+    div: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+
+      span: {
+        lineHeight: 1.6,
+        fontSize: '$xl',
+        fontWeight: 'bold',
+        color: '$green300',
+      },
+
+      strong: {
+        lineHeight: 1.4,
+        fontSize: '$lg',
+        color: '$gray100',
+      },
+    },
+
+    button: {
+      background: '$green300',
+      color: '$white',
+      height: '3.5rem',
+      width: '3.5rem',
+      border: 'none',
+      borderRadius: '6px',
+
+      transition: 'filter 0.2s ease',
+      cursor: 'pointer',
+
+      svg: {
+        width: '2rem',
+        height: '2rem',
+      },
     },
   },
 
