@@ -103,6 +103,16 @@ export const Product = styled('div', {
     opacity: 1,
     transition: 'all 0.2s ease-in-out',
 
+    '.footer-first-type': {
+      height: '100%',
+      width: '100%',
+
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+
     a: {
       textDecoration: 'none',
     },
@@ -113,19 +123,19 @@ export const Product = styled('div', {
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'flex-start',
+    },
 
-      span: {
-        lineHeight: 1.6,
-        fontSize: '$xl',
-        fontWeight: 'bold',
-        color: '$green300',
-      },
+    span: {
+      lineHeight: 1.6,
+      fontSize: '$xl',
+      fontWeight: 'bold',
+      color: '$green300',
+    },
 
-      strong: {
-        lineHeight: 1.4,
-        fontSize: '$lg',
-        color: '$gray100',
-      },
+    strong: {
+      lineHeight: 1.4,
+      fontSize: '$lg',
+      color: '$gray100',
     },
 
     button: {

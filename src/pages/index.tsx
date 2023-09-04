@@ -20,6 +20,10 @@ interface Product {
   price: string
   priceFormatted: string
   defaultPriceId: string
+  metadata: {
+    name: string
+    size: string
+  }
 }
 
 interface HomeProps {
@@ -89,21 +93,25 @@ export default function Home({ products }: HomeProps) {
           {products.map((product: Product, index) => (
             <div key={product.id}>
               <Product className={`keen-slider__slide number-slide${index}`}>
-                <Link href={`/product/${product.id}`} prefetch={false}>
+                <Link href={`/product/${product.name}`} prefetch={false}>
                   <Image src={product.imgUrl} width={520} height={480} alt="" />
                 </Link>
 
                 <footer>
-                  <Link href={`/product/${product.id}`} prefetch={false}>
-                    <div>
-                      <strong>{product.name}</strong>
-                      <span>{product.priceFormatted}</span>
-                    </div>
+                  <Link
+                    href={`/product/${product.name}`}
+                    prefetch={false}
+                    className="footer-first-type"
+                  >
+                    {/*  <div> */}
+                    <strong>{product.name}</strong>
+                    <span>{product.priceFormatted}</span>
+                    {/*  </div> */}
                   </Link>
 
-                  <button onClick={() => handleAddProductToCart(product)}>
+                  {/* <button onClick={() => handleAddProductToCart(product)}>
                     <Handbag weight="bold" />
-                  </button>
+                  </button> */}
                 </footer>
               </Product>
             </div>
@@ -148,8 +156,9 @@ export const getStaticProps: GetStaticProps = async () => {
 
     return {
       id: product.id,
-      name: product.name,
+      name: product.metadata.name,
       imgUrl: product.images[0],
+      size: product.metadata.size,
       priceFormatted: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
@@ -159,9 +168,21 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   })
 
+  // eslint-disable-next-line
+  const productsFiltred = products.reduce((newList: any, product: any) => {
+    for (let i = 0; i < products.length; i++) {
+      if (product.name !== newList[i]?.name) {
+        return [...newList, product]
+      }
+      if (product.name === newList[i]?.name) {
+        return newList
+      }
+    }
+  }, [])
+
   return {
     props: {
-      products,
+      products: productsFiltred,
     },
     revalidate: 60 * 60 * 2, // 2 horas
   }

@@ -1,4 +1,5 @@
 import { styled } from '../../styles'
+import * as Select from '@radix-ui/react-select'
 
 export const ProductContainer = styled('main', {
   display: 'grid',
@@ -57,7 +58,7 @@ export const ProductDetails = styled('div', {
     fontSize: '1.1rem',
   },
 
-  '> div': {
+  '.controlQtde': {
     width: 'min-content',
     display: 'inline-flex',
     alignItems: 'center',
@@ -76,7 +77,7 @@ export const ProductDetails = styled('div', {
     },
   },
 
-  '> div > button': {
+  '.controlQtde > button': {
     flexCenter: 'center',
     color: '$white',
     background: 'transparent',
@@ -107,7 +108,7 @@ export const ProductDetails = styled('div', {
     },
   },
 
-  '> button': {
+  '.buttonAddToCart': {
     marginTop: 'auto',
     background: '$green500',
     border: 0,
@@ -127,6 +128,74 @@ export const ProductDetails = styled('div', {
       opacity: 0.6,
       cursor: 'not-allowed',
     },
+  },
+})
+
+export const SelectButton = styled('div', {
+  width: '4.5rem',
+  display: 'flex',
+  flexDirection: 'row',
+  paddingLeft: '8px',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  borderRadius: 2,
+  border: '4px solid $white',
+
+  background: 'transparent',
+
+  '> span': {
+    fontWeight: 'bolder',
+  },
+
+  '> button > span': {
+    width: '2rem',
+    textAlign: 'center',
+    borderRadius: 0,
+  },
+  '> button': {
+    display: 'flex',
+    justifyContent: 'center',
+
+    background: 'transparent',
+    color: 'white',
+    borderRadius: 0,
+
+    svg: {
+      width: '1.25rem',
+      height: '1.25rem',
+    },
+
+    border: 'none',
+
+    '&:hover': {
+      background: '$gray700',
+    },
+  },
+})
+
+export const SelectContent = styled(Select.Content, {
+  width: '4rem',
+  overflow: 'hidden',
+  backgroundColor: '$gray700',
+  color: '$white',
+  borderRadius: '4px',
+  padding: '5px',
+  boxShadow:
+    '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
+})
+export const SelectItem = styled(Select.Item, {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  border: 'none',
+  borderRadius: '4px',
+  padding: '5px',
+  fontWeight: 'bolder',
+
+  '&[data-highlighted]': {
+    border: 'none',
+    outline: 'none',
+    background: '$green300',
   },
 })
 

@@ -50,7 +50,7 @@ export default function Success({ customerName, products }: SuccessProps) {
             ))}
         </center>
         <h1>Compra Efetuada!</h1>
-        {products.length > 0 ? (
+        {products.length > 1 ? (
           <p>
             Uhuul <strong>{customerName}</strong>, sua compra de {totalProducts}{' '}
             camisetas já está a caminho da sua casa.
