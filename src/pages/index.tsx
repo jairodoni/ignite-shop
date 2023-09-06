@@ -16,6 +16,7 @@ import { useShoppingCart } from 'use-shopping-cart'
 interface Product {
   id: string
   name: string
+  tag: string
   imgUrl: string
   price: string
   priceFormatted: string
@@ -93,13 +94,13 @@ export default function Home({ products }: HomeProps) {
           {products.map((product: Product, index) => (
             <div key={product.id}>
               <Product className={`keen-slider__slide number-slide${index}`}>
-                <Link href={`/product/${product.name}`} prefetch={false}>
+                <Link href={`/product/${product.tag}`} prefetch={false}>
                   <Image src={product.imgUrl} width={520} height={480} alt="" />
                 </Link>
 
                 <footer>
                   <Link
-                    href={`/product/${product.name}`}
+                    href={`/product/${product.tag}`}
                     prefetch={false}
                     className="footer-first-type"
                   >
@@ -157,6 +158,8 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       id: product.id,
       name: product.metadata.name,
+      nameWithSize: product.name,
+      tag: product.metadata.tag,
       imgUrl: product.images[0],
       size: product.metadata.size,
       priceFormatted: new Intl.NumberFormat('pt-BR', {
@@ -170,13 +173,26 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // eslint-disable-next-line
   const productsFiltred = products.reduce((newList: any, product: any) => {
-    for (let i = 0; i < products.length; i++) {
-      if (product.name !== newList[i]?.name) {
+    if (!!newList && newList.length > 0) {
+      let checkProductInList = false
+
+      checkProductInList = newList.some(
+        (productItem: any) =>
+          product.name.trim().toLowerCase() ===
+          productItem.name.trim().toLowerCase(),
+      )
+
+      if (!checkProductInList) {
         return [...newList, product]
       }
-      if (product.name === newList[i]?.name) {
+
+      if (checkProductInList) {
         return newList
       }
+    }
+
+    if (!!newList && newList.length === 0) {
+      return Array(product)
     }
   }, [])
 

@@ -181,10 +181,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<any, { slug: string }> = async ({
   params,
 }: any) => {
-  const productName = params.slug
+  const tag = params.slug
 
   const search = await stripe.products.search({
-    query: `active:\'true\' AND name:\'${productName}\'`,
+    query: `active:\'true\' AND metadata[\'tag\']:\'${tag}\'`,
     expand: ['data.default_price'],
   })
 
