@@ -205,14 +205,29 @@ export const getStaticProps: GetStaticProps<any, { slug: string }> = async ({
     defaultPriceId: price.id,
   }
 
-  const sizesFormatted = productList.map((product) => {
-    return {
-      productId: product.id,
-      name: product.name,
-      size: product.metadata.size,
-      priceId: product.default_price.id,
-    }
-  })
+  const sizesFormatted = productList
+    .map((product) => {
+      return {
+        productId: product.id,
+        name: product.name,
+        size: product.metadata.size,
+        priceId: product.default_price.id,
+      }
+    })
+    .sort((product: any) => {
+      if (product.size === 'P') {
+        return -1
+      }
+      if (product.size === 'M') {
+        return -1
+      }
+      if (product.size === 'G') {
+        return 1
+      }
+      if (product.size === 'GG') {
+        return 1
+      }
+    })
 
   return {
     props: {
