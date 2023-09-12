@@ -19,4 +19,20 @@ export const Header = styled('header', {
 
   position: 'relative',
   left: '18vw',
+
+  '@bp1500': {
+    maxWidth: 900,
+  },
+  '@bp1200': {
+    maxWidth: 600,
+  },
+  '@bp900': {
+    maxWidth: 400,
+  },
+  '@bp650': {
+    maxWidth: 300,
+  },
+  '@bp480': {
+    maxWidth: 250,
+  },
 })

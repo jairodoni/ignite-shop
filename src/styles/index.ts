@@ -35,6 +35,8 @@ export const {
     bp480: '(max-width: 480px)',
     bp650: '(max-width: 650px)',
     bp900: '(max-width: 900px)',
+    bp1200: '(max-width: 1200px)',
+    bp1500: '(max-width: 1600px)',
   },
   utils: {
     flexCenter: () => ({

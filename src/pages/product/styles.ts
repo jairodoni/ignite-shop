@@ -9,6 +9,19 @@ export const ProductContainer = styled('main', {
 
   maxWidth: 1180,
   margin: '0 auto',
+
+  padding: '0 1rem',
+
+  '@bp1200': {
+    maxWidth: 800,
+  },
+  '@bp900': {
+    maxWidth: 540,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
 })
 
 export const ImageContainer = styled('div', {
@@ -114,6 +127,7 @@ export const ProductDetails = styled('div', {
     border: 0,
     color: '$white',
     borderRadius: 8,
+    marginBottom: '1rem',
     padding: '1.25rem',
     cursor: 'pointer',
     fontWeight: '700',
@@ -136,6 +150,7 @@ export const SelectButton = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   paddingLeft: '8px',
+  marginBottom: '3rem',
   alignItems: 'center',
   justifyContent: 'space-between',
   borderRadius: 2,

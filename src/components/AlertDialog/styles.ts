@@ -1,10 +1,10 @@
-import { keyframes, styled } from '@/styles'
+import { styled } from '@/styles'
 import * as Dialog from '@radix-ui/react-dialog'
 
 export const Content = styled(Dialog.Content, {
-  maxWidth: 800,
-  width: '100%',
-  zIndex: 2,
+  maxWidth: 850,
+  width: '95%',
+  zIndex: 3,
 
   position: 'absolute',
   top: '50%',
@@ -43,6 +43,10 @@ export const Content = styled(Dialog.Content, {
       color: '$green300',
     },
   },
+
+  '@bp900': {
+    top: '25%',
+  },
 })
 
 export const Close = styled(Dialog.Close, {
@@ -70,7 +74,7 @@ export const Close = styled(Dialog.Close, {
 })
 
 export const Overlay = styled(Dialog.Overlay, {
-  zIndex: 1,
+  zIndex: 2,
   position: 'fixed',
   width: '100vw',
   height: '100vh',

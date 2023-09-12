@@ -6,11 +6,11 @@ export const ButtonShoppingCartComponent = styled(Dialog.Trigger, {
   border: 'none',
 
   center: {
-    zIndex: 9,
+    zIndex: 1,
     width: '1.5rem',
     height: '1.5rem',
 
-    position: 'fixed',
+    position: 'absolute',
     marginLeft: '2.2rem',
     marginTop: '-10px',
 

@@ -53,13 +53,9 @@ export const HomeContainer = styled('div', {
   },
   '@bp650': {
     minHeight: 400,
-    '> div': {
-      padding: '3rem 0',
-    },
   },
   '@bp480': {
     minHeight: 300,
-    padding: '1rem',
   },
 })
 
@@ -136,6 +132,15 @@ export const Product = styled('div', {
       lineHeight: 1.4,
       fontSize: '$lg',
       color: '$gray100',
+    },
+
+    '@bp900': {
+      strong: {
+        fontSize: '1rem',
+      },
+      span: {
+        fontSize: '0.875rem',
+      },
     },
 
     button: {
