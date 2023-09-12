@@ -15,6 +15,7 @@ import { Handbag } from 'phosphor-react'
 import { CartProvider, useShoppingCart } from 'use-shopping-cart'
 import { ButtonTriggerShoppingCart } from '@/components/ButtonTriggerShoppingCart'
 import { useEffect, useState } from 'react'
+import { AlertDialog } from '@/components/AlertDialog'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
         stripe={String(process.env.STRIPE_PUBLIC_KEY)}
         currency="BRL"
       >
+        <AlertDialog />
         <Container className={roboto.className}>
           <Header>
             <Link href="/">
