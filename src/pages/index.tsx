@@ -138,7 +138,7 @@ export default function Home({ products }: HomeProps) {
           ))
           }
         </div>
-        {renderSlide && products.length === 0 && (
+        {renderSlide && products.length > 0 && (
           <>
             <button
               onClick={(e: any) =>
