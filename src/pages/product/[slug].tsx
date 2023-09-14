@@ -7,7 +7,7 @@ import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { Plus, Minus, CaretDown, CaretUp } from 'phosphor-react'
 
-import { SkeletonComponent } from './components/skeleton'
+import { SkeletonProductComponent } from '../../components/SkeletonProductComponent/skeleton'
 import { Header } from '@/components/Header'
 
 import {
@@ -17,7 +17,7 @@ import {
   SelectButton,
   SelectContent,
   SelectItem,
-} from './styles'
+} from '../../styles/pages/product'
 import { useShoppingCart } from 'use-shopping-cart'
 
 interface Product {
@@ -82,7 +82,7 @@ export default function Product({ product, sizes }: ProductProps) {
     return (
       <>
         <Header title="Produto" />
-        <SkeletonComponent />
+        <SkeletonProductComponent />
       </>
     )
   }
@@ -173,7 +173,7 @@ export default function Product({ product, sizes }: ProductProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [{ params: { slug: 'prod_OSNr99tlk8nODx' } }],
+    paths: [{ params: { slug: 'igniteraboard' } }],
     fallback: true,
   }
 }
@@ -207,11 +207,13 @@ export const getStaticProps: GetStaticProps<any, { slug: string }> = async ({
 
   const sizesFormatted = productList
     .map((product) => {
+      const price = product?.default_price as Stripe.Price
+
       return {
         productId: product.id,
         name: product.name,
         size: product.metadata.size,
-        priceId: product.default_price.id,
+        priceId: price.id,
       }
     })
     .sort((product: any) => {
@@ -227,6 +229,7 @@ export const getStaticProps: GetStaticProps<any, { slug: string }> = async ({
       if (product.size === 'GG') {
         return 1
       }
+      return 0;
     })
 
   return {

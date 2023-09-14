@@ -1,21 +1,18 @@
 import type { AppProps } from 'next/app'
 import { Roboto } from 'next/font/google'
-import * as Dialog from '@radix-ui/react-dialog'
 
 import { globalStyles } from '@/styles/global'
 import { Container, Header } from '../styles/pages/app'
 
 import logoImg from '@/assets/imgs/logo.svg'
+import { AlertDialog } from '@/components/AlertDialog'
+import { ShoppingCartContent } from '@/components/ShoppingCartComponent'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import Link from 'next/link'
-import { ShoppingCartContent } from '@/components/ShoppingCartComponent'
-import { Handbag } from 'phosphor-react'
-import { CartProvider, useShoppingCart } from 'use-shopping-cart'
-import { ButtonTriggerShoppingCart } from '@/components/ButtonTriggerShoppingCart'
-import { useEffect, useState } from 'react'
-import { AlertDialog } from '@/components/AlertDialog'
+import { CartProvider } from 'use-shopping-cart'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -34,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <SkeletonTheme baseColor="#202020" highlightColor="#444">
       <CartProvider
-        mode="payment"
+        shouldPersist
         cartMode="checkout-session"
         stripe={String(process.env.STRIPE_PUBLIC_KEY)}
         currency="BRL"

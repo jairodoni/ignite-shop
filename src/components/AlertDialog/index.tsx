@@ -14,8 +14,8 @@ export function AlertDialog() {
           <Warning />
           <h3>Atenção !!</h3>
           <p>
-            Este site apenas "SIMULA" um e-commerce, nenhuma compra será
-            realmente efetuada e nenhum produto está realmente a venda, o
+            Este site apenas &quot;SIMULA&quot; um e-commerce, nenhuma compra
+            será realmente efetuada e nenhum produto está realmente a venda, o
             recurso usado para efetuar as compras é o stripe, no momento ele
             está com o modo teste ativado, mesmo assim se for testar alguma
             compra compra NÃO use um cartão real, pode-se utilizar os exemplos

@@ -1,4 +1,4 @@
-import { styled } from '../../styles'
+import { styled } from '..'
 import * as Select from '@radix-ui/react-select'
 
 export const ProductContainer = styled('main', {

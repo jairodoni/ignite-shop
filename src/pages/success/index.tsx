@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ImageContainer, SuccessContainer } from './styles'
+import { ImageContainer, SuccessContainer } from '../../styles/pages/success'
 import { GetServerSideProps } from 'next'
 import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
@@ -25,7 +25,7 @@ export default function Success({ customerName, products }: SuccessProps) {
   })
 
   const totalProducts = products.reduce(
-    (accumulator, product) => accumulator + product.quantity,
+    (accumulator: any, product: any) => accumulator + product.quantity,
     0,
   )
 
@@ -83,8 +83,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     expand: ['line_items', 'line_items.data.price.product'],
   })
 
-  const customerName = session.customer_details.name
-  const products = session.line_items.data as Stripe.Product
+  const customerName = session?.customer_details?.name
+  const products = session?.line_items?.data as unknown as Stripe.Product
 
   return {
     props: {
