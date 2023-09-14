@@ -182,3 +182,23 @@ export const Product = styled('div', {
     },
   },
 })
+
+
+export const SkeletonProductContainer = styled('div', {
+  maxWidth:'540px',
+  position: 'relative',
+
+  '&:first-child': {
+    position: 'relative',
+    left: '-16vw',
+  },
+
+  div:{
+    marginTop:"1rem",
+    display:"flex",
+    justifyContent:"space-between"
+  },
+  '@bp650': {
+    maxWidth:'300px',
+  },
+})

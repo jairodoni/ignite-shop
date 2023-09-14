@@ -4,8 +4,9 @@ import Image from 'next/legacy/image'
 import Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
 import { useKeenSlider } from 'keen-slider/react'
+import Skeleton from 'react-loading-skeleton'
 
-import { HomeContainer, Product } from '../styles/pages/home'
+import { HomeContainer, Product, SkeletonProductContainer } from '../styles/pages/home'
 
 import 'keen-slider/keen-slider.min.css'
 import { Header } from '@/components/Header'
@@ -85,13 +86,27 @@ export default function Home({ products }: HomeProps) {
     instanceRef.current &&
     currentSlide === instanceRef.current.track.details.slides.length - 2
 
+
+  const SkeletonComponent = (index: number | any) => {
+    return (
+      <SkeletonProductContainer className={`keen-slider__slide number-slide${index}`}>
+        <Skeleton height={`calc(${screenWidth > 1200 ? "656px" : "400px"} - 0.5rem)`} />
+
+        <div>
+          <Skeleton height={32} width={screenWidth > 1000 ? 200 : 100} />
+          <Skeleton height={32} width={screenWidth > 1000 ? 100 : 50} />
+        </div>
+      </SkeletonProductContainer>
+    )
+  }
+
   return (
     <>
       <Header title="Home" />
 
       <HomeContainer className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
-          {products.map((product: Product, index) => (
+          {products.length === 0 ? products.map((product: Product, index) => (
             <div key={product.id}>
               <Product className={`keen-slider__slide number-slide${index}`}>
                 <Link href={`/product/${product.tag}`} prefetch={false}>
@@ -116,9 +131,14 @@ export default function Home({ products }: HomeProps) {
                 </footer>
               </Product>
             </div>
-          ))}
+          )) : [1, 2, 3, 4].map(itemLoading => (
+            <div key={itemLoading}>
+              <SkeletonComponent index={itemLoading} />
+            </div>
+          ))
+          }
         </div>
-        {renderSlide && (
+        {renderSlide && products.length === 0 && (
           <>
             <button
               onClick={(e: any) =>
