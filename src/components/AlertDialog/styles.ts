@@ -46,6 +46,7 @@ export const Content = styled(Dialog.Content, {
 
   '@bp900': {
     top: '25%',
+    transform: 'translate(-50%, -25%)',
   },
 })
 

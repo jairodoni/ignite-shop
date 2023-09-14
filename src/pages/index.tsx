@@ -106,7 +106,7 @@ export default function Home({ products }: HomeProps) {
 
       <HomeContainer className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider">
-          {products.length === 0 ? products.map((product: Product, index) => (
+          {products.length > 0 ? products.map((product: Product, index) => (
             <div key={product.id}>
               <Product className={`keen-slider__slide number-slide${index}`}>
                 <Link href={`/product/${product.tag}`} prefetch={false}>
