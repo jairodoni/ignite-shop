@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="ignite-shop" title="ignite-shop" src=".github/logo.png" width="300px" />
+    <img alt="ignite-shop" title="ignite-shop" src=".github/logo.png"/>
 </h1>
 
 <div align="center">
