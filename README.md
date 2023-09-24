@@ -77,11 +77,10 @@ Você pode visualizar o layout do projeto no formato através [desse link](https
 ## **💻 Tecnologias**
 
 
- #### **Website** ([React][react])
- 
-  - **[React][react]**
-  - **[Typescript][typescript]**
+ #### **Website** ([Next][next])
+
   - **[Next][next]**
+  - **[Typescript][typescript]**
   - **[Stripe][stripe]**
   - **[Stitches][stitches]**
   - **[Prettier][prettier]**
@@ -138,6 +137,7 @@ $ yarn dev
 ## **📚 Referências**
 
 - [Blog Rocketseat](https://blog.rocketseat.com.br/)
+- [Next][next]
 - [ReactJS](https://reactjs.org/docs/getting-started.html) | [ReactJS pt-BR](https://pt-br.reactjs.org/docs/getting-started.html)
 - [Node](https://nodejs.org/en/)
 
