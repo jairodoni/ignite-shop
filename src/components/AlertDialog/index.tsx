@@ -20,7 +20,10 @@ export function AlertDialog() {
             está com o modo teste ativado, mesmo assim se for testar alguma
             compra compra NÃO use um cartão real, pode-se utilizar os exemplos
             do seguinte site para teste:{' '}
-            <a>
+            <a
+              href='https://stripe.com/docs/testing?testing-method=card-numbers#cards'
+              target='_blank'
+            >
               https://stripe.com/docs/testing?testing-method=card-numbers#cards
             </a>
           </p>
